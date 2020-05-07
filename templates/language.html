@@ -14,9 +14,34 @@
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin="">
     </script>
+    <style>
+        .legend {
+            line-height: 18px;
+            color: #555;
+            text-align: center;
+            background: white;
+        }
+        .legend i {
+            width: 38px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+        .button-home{
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 <h1> Heatmap </h1>
+<button class="button-home">
+    <a href="index">homepage</a>
+</button>
 <div id='mapid' style="height: 600px"></div>
 
 <script type="text/javascript">
@@ -50,13 +75,33 @@
     for (var i = data.length - 1; i >= 0; i--) {
         console.log(data[i].location,data[i].count);
         var loc = [data[i].location[1], data[i].location[0]]
+	var count  = data[i].count
           var marker = L.circleMarker(loc, {
             radius: 5,
             fillOpacity: 0.5,
             color: getColor(data[i].count),
             weight: 1,}
           ).addTo(map);
+	 marker.bindPopup("<b>Location: </b>" + loc + "<br><b>Count: </b>" + count).openPopup();
     };
+	
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 0.1, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9],
+            labels = [];
+        // loop through our density intervals and generate a label with a colored square for each interval
+         for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 0.1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+        return div;
+    };
+
+    legend.addTo(map);
 
 </script>
 </body>
