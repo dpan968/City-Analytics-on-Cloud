@@ -19,7 +19,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('location',views.pong),
-    path('heatorigin',views.heatMapOrigin()),
+    path('heatorigin',views.heatMapOrigin),
     path('heatbystate',views.heatByState),
     path('language',views.language),
     #path('test',views.test)
