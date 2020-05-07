@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('location',views.pong),
     path('template',views.templateTest),
+    path('language',views.language)
 ]
