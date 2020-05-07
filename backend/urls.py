@@ -19,6 +19,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('location',views.pong),
-    path('template',views.templateTest),
-    path('language',views.language)
+    path('heatorigin',views.heatMapOrigin()),
+    path('heatbystate',views.heatByState),
+    path('language',views.language),
+    #path('test',views.test)
 ]
