@@ -61,7 +61,7 @@ def heatByState(request):
             'wa' : 0,
             'tas' : 0,
             'nt' : 0,
-            'ct' : 0
+            'act' : 0
         }
         result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
         for row in result:
@@ -86,10 +86,10 @@ def heatByState(request):
             elif statLocation.inCT(item['location']):
                 stateCount['ct'] += item['count']
 
-        # return render(request, 'heatMapByState.html', {'data':stateCount})
-        return JsonResponse({
-            'data': stateCount
-        })
+        return render(request, 'heatMapByState.html', {'data':stateCount})
+        # return JsonResponse({
+        #     'data': stateCount
+        # })
 
 
 
