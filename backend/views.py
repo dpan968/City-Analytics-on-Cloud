@@ -150,8 +150,4 @@ def language(request):
     
 def index(request):
     if request.method == 'GET':
-        print("receive request")
-        server1 = couchdb2.Server('http://admin:1234@115.146.94.150:8000/')
-        data = []
-
         return render(request, 'index.html', {'data': data})
