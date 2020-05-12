@@ -3,6 +3,7 @@ from django.shortcuts import render
 import json
 from .utils import StateLocation
 import couchdb2
+import os
 def pong(request):
     if request.method == "GET":
         print("receive request")
@@ -150,4 +151,10 @@ def language(request):
     
 def index(request):
     if request.method == 'GET':
-        return render(request, 'index.html', {'data': data})
+        return render(request, 'index.html', {})
+def test(request):
+    if request.method == 'GET':
+        a = os.environ.get('TEST')
+        return JsonResponse({
+            "env":a
+        })
