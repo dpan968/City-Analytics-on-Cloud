@@ -4,10 +4,15 @@ import json
 from .utils import StateLocation
 import couchdb2
 import os
+
+ip = os.environ.get('DB')
+address = "http://admin:1234@" + ip + ":5984/"
+print(address)
 def pong(request):
     if request.method == "GET":
-        print("receive request")
-        server1 = couchdb2.Server('http://admin:1234@115.146.94.150:8000/')
+        print("address")
+
+        server1 = couchdb2.Server(address)
         db = server1['tweets']
 
         list = []
@@ -51,7 +56,7 @@ def heatByState(request):
     if request.method == "GET":
         statLocation = StateLocation()
         print("receive request")
-        server1 = couchdb2.Server('http://admin:1234@115.146.94.150:8000/')
+        server1 = couchdb2.Server(address)
         db = server1['tweets']
 
         stateCount = {
@@ -64,6 +69,8 @@ def heatByState(request):
             'nt' : 0,
             'act' : 0
         }
+
+
         result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
         for row in result:
             item = {
@@ -98,7 +105,7 @@ def heatByState(request):
 def heatMapOrigin(request):
     if request.method == "GET":
         print("receive request")
-        server1 = couchdb2.Server('http://admin:1234@115.146.94.150:8000/')
+        server1 = couchdb2.Server(address)
         db = server1['tweets']
 
         list = []
@@ -117,7 +124,7 @@ def heatMapOrigin(request):
 def language(request):
     if request.method == 'GET':
         print("receive request")
-        server1 = couchdb2.Server('http://admin:1234@115.146.94.150:8000/')
+        server1 = couchdb2.Server(address)
         db = server1['tweets']
 
         list = []
