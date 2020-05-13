@@ -102,7 +102,7 @@ def heatByState(request):
             elif statLocation.inCT(item['location']):
                 stateCount['ct'] += item['count']
 
-        return render(request, 'heatMapByState.html', {'data':stateCount})
+        return render(request, 'heatMapByState.html', {'data':stateCount,'aurin':readPopulation()})
         # return JsonResponse({
         #     'data': stateCount
         # })
@@ -171,8 +171,7 @@ def test(request):
     if request.method == 'GET':
 
         return JsonResponse({
-            "env":a,
-
+            "aurin":readPopulation(),
         })
 
 def dayAndTime(request):
@@ -201,6 +200,40 @@ def dayAndTime(request):
         return JsonResponse({'day':day,'time':time})
 
 
+def readPopulation():
+    statePopulation = {
+        'vic': 0,
+        'nsw': 0,
+        'sa': 0,
+        'qsl': 0,
+        'wa': 0,
+        'tas': 0,
+        'nt': 0,
+        'act': 0
+    }
+    stateDict = {
+        '1 ': 'nsw',
+        '2 ': 'vic',
+        '3 ': 'qsl',
+        '4 ': 'sa',
+        '5 ': 'wa',
+        '6 ': 'tas',
+        '7 ': 'nt',
+        '8 ': 'act'
+    }
+    file = open("backend/aurinPopulation.json")
+    data = ""
+    while True:
+        line = file.readline()
+        if not line:
+            break
+        data += line
 
-        return JsonResponse({'data':day})
+    originalJson = json.loads(data)
+    for i in originalJson["features"]:
+        properties = i["properties"]
+        areaPopulation = properties["persons_total"]
+        state = stateDict[properties["state_code"]]
+        statePopulation[state] += areaPopulation
 
+    return statePopulation
