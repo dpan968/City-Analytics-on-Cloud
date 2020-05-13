@@ -174,3 +174,33 @@ def test(request):
             "env":a,
 
         })
+
+def dayAndTime(request):
+    if request.method == 'GET':
+        server1 = couchdb2.Server(address)
+        db = server1['tweets']
+
+        list = []
+        result = db.view('/abc', 'day', group=True, group_level=1, reduce=True)
+        day = []
+        for row in result:
+            item = {
+                'day': row.key,
+                'frequency': row.value
+            }
+            day.append(item)
+
+        result = db.view('/abc', 'time', group=True, group_level=1, reduce=True)
+        time = []
+        for row in result:
+            item = {
+                'time': row.key,
+                'frequency': row.value
+            }
+            time.append(item)
+        return JsonResponse({'day':day,'time':time})
+
+
+
+        return JsonResponse({'data':day})
+

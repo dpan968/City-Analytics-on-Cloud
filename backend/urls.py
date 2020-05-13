@@ -16,13 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('location',views.pong),
-    path('heatorigin',views.heatMapOrigin),
-    path('heatbystate',views.heatByState),
-    path('language',views.language),
+    path('location', views.pong),
+    path('heatorigin', views.heatMapOrigin),
+    path('heatbystate', views.heatByState),
+    path('language', views.language),
     path('index', views.index),
-    path('test',views.test)
+    path('daytime', views.dayAndTime),
+    path('test', views.test)
 
 ]
