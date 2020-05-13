@@ -7,7 +7,15 @@ import os
 
 ip = os.environ.get('DB')
 address = "http://admin:1234@" + ip + ":5984/"
-print(address)
+a = os.environ.get('TEST')
+file = open("backend/aurin.geojson")
+data = ""
+while True:
+    line = file.readline()
+    if not line:
+        break
+    data += line
+aurin = json.loads(data)
 def pong(request):
     if request.method == "GET":
         print("address")
@@ -154,14 +162,15 @@ def language(request):
                         'count':1
                     }
                     data.append(item)
-        return render(request, 'language.html', {'data': data})
+        return render(request, 'language.html', {'data': data,"aurin":aurin})
     
 def index(request):
     if request.method == 'GET':
         return render(request, 'index.html', {})
 def test(request):
     if request.method == 'GET':
-        a = os.environ.get('TEST')
+
         return JsonResponse({
-            "env":a
+            "env":a,
+
         })
