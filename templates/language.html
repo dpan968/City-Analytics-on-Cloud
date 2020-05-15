@@ -61,6 +61,15 @@
           margin-top: 30px;
           margin-bottom: 30px;
         }
+        .content{
+            width: 94%;
+            text-align: justify;
+        }
+        .fig{
+            text-align: center;
+            width: 100%;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -70,10 +79,23 @@
 
 <div class="container">
     <div class="row justify-content-md-center">
-        <h1>Use of Foreign Language</h1>
+        <h1>Language and Twitter</h1>
     </div>
     <div class="row justify-content-md-center">
-        <h4>Description</h4>
+        <h4>Discovery</h4>
+        <div class="content">
+            <br>
+            The data has shown a positive correlation between the rate of non-English twitter and
+            rate of non-English speaking population over a sample period. For instance, NSW, with 786k
+            non-English speaking population and corresponding 200k non-English tweets, is leading on
+            both rankings. In a percentage prospective, NSW donates the highest percentage of non-English
+            tweets (weights 50% of total tweets) with 32% of total non-English speaking population.Each
+            state’s stats can be found by the following interactive bar charts and radar charts.
+        </div>
+
+        <div><br><br>
+            <h4>Charts and Figures</h4>
+        </div>
     </div>
     <div class="row">
         <div id='mapid'></div>
@@ -83,9 +105,12 @@
     </div>
     <div class="row">
         <canvas id="myChart2"></canvas>
+        <div class="fig">Figure 1. Rate of Non-English Twitter and <br>Non-English Population by State</div>
     </div>
+    <br>
     <div class="row">
         <canvas id="myChart"></canvas>
+        <div class="fig">Figure 2. Rate of Non-English Twitter and <br>Non-English Population by State</div>
     </div>
 </div>
 <script type="text/javascript">
