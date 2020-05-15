@@ -167,6 +167,7 @@ def language(request):
 def index(request):
     if request.method == 'GET':
         return render(request, 'index.html', {})
+
 def test(request):
     if request.method == 'GET':
 
@@ -197,7 +198,8 @@ def dayAndTime(request):
                 'frequency': row.value
             }
             time.append(item)
-        return JsonResponse({'day':day,'time':time})
+        #return JsonResponse({'day':day,'time':time})
+        return render(request, 'daytime.html', {'day':day,'time':time})
 
 
 def readPopulation():

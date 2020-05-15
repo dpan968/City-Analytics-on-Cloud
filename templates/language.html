@@ -14,7 +14,22 @@
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin="">
     </script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <style>
+         #mapid {
+            height: 600px;
+            width: 1200px;
+        }
+         #mapid2 {
+            height: 600px;
+            width: 1200px;
+        }
         .legend {
             line-height: 18px;
             color: #555;
@@ -34,21 +49,44 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+            border-radius: 12px;
+            background-color: #555555;
+        }
+        .row{
+          width: 100%;
+          display: flex;
+          margin-top: 30px;
+          margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
-<h1> Heatmap </h1>
 <button class="button-home">
     <a href="index">homepage</a>
 </button>
-<div id='mapid' style="height: 600px"></div>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <h1>Use of Foreign Language</h1>
+    </div>
+    <div class="row justify-content-md-center">
+        <h4>Description</h4>
+    </div>
+    <div class="row">
+        <div id='mapid'>
+        </div>
+    </div>
+        <div class="row">
+        <div id='mapid2'>
+        </div>
+    </div>
 
 <script type="text/javascript">
 
     var data = {{ data|safe }};
-    console.log('--- iterate ---')
+    var aurin = {{ aurin|safe }};
 
+    //FIRST MAP
     var map = L.map('mapid').setView([-25, 133.8], 4);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -73,22 +111,20 @@
     }
 
     for (var i = data.length - 1; i >= 0; i--) {
-        console.log(data[i].location,data[i].count);
         var loc = [data[i].location[1], data[i].location[0]]
-	var count  = data[i].count
-          var marker = L.circleMarker(loc, {
+	    var count  = data[i].count
+        var marker = L.circleMarker(loc, {
             radius: 5,
             fillOpacity: 0.5,
             color: getColor(data[i].count),
             weight: 1,}
           ).addTo(map);
-	 marker.bindPopup("<b>Location: </b>" + loc + "<br><b>Count: </b>" + count).openPopup();
+	    marker.bindPopup("<b>Location: </b>" + loc + "<br><b>Count: </b>" + count).openPopup();
     };
 	
     var legend = L.control({position: 'bottomright'});
 
     legend.onAdd = function (map) {
-
         var div = L.DomUtil.create('div', 'info legend'),
             grades = [0, 0.1, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9],
             labels = [];
@@ -102,6 +138,67 @@
     };
 
     legend.addTo(map);
+
+    //SECOND MAP
+    var map2 = L.map('mapid2').setView([-25, 133.8], 4);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox/light-v9',
+      tileSize: 512,
+      zoomOffset: -1
+    }).addTo(map2);
+
+    function getColor2(d) {
+      return d > 0.09 ? '#800026' :
+          d > 0.08  ? '#BD0026' :
+          d > 0.07  ? '#E31A1C' :
+          d > 0.06  ? '#FC4E2A' :
+          d > 0.05   ? '#FD8D3C' :
+          d > 0.03   ? '#FEB24C' :
+          d > 0.01   ? '#FED976' :
+                '#FFEDA0';
+    }
+
+    function style(feature) {
+        return {
+            radius: 5,
+            fillOpacity: 0.5,
+            weight: 1,
+            color: getColor2(feature.properties.ratio)
+        };
+    }
+
+    function onEachFeature(feature, layer) {
+        layer.bindPopup("<b>Ratio: </b>" + feature.properties.ratio);
+    };
+    L.geoJSON(aurin, {
+        pointToLayer: function (feature, coordinate) {
+            return L.circleMarker(coordinate, style);
+        },
+        style: style,
+        onEachFeature: onEachFeature
+    }).addTo(map2);
+
+    var legend2 = L.control({position: 'bottomright'});
+
+    legend2.onAdd = function (map2) {
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 0.01, 0.03, 0.05, 0.06, 0.07, 0.08, 0.09],
+            labels = [];
+        // loop through our density intervals and generate a label with a colored square for each interval
+         for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor2(grades[i] + 0.01) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+        return div;
+    };
+
+    legend2.addTo(map2);
+
 
 </script>
 </body>
