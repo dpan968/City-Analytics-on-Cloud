@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="59ead6e1-62be-40a4-b6fe-ddb2d4a14a53" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/daytime.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/daytime.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/heatMapByState.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/heatMapByState.html" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +37,18 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/backend" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="backend" type="Python.DjangoServer" factoryName="Django server">
@@ -77,6 +91,7 @@
       <workItem from="1588325049225" duration="725000" />
       <workItem from="1588581401861" duration="1342000" />
       <workItem from="1589522617338" duration="593000" />
+      <workItem from="1589530720699" duration="3429000" />
     </task>
     <task id="LOCAL-00001" summary="add homepage link">
       <created>1589522695858</created>

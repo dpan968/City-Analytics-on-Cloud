@@ -28,6 +28,15 @@
             border-radius: 12px;
             background-color: #555555;
         }
+        .content{
+            width: 92%;
+            text-align: justify;
+        }
+        .fig{
+            text-align: center;
+            width: 100%;
+            font-size: 18px;
+        }
     </style>
 
     </head>
@@ -40,13 +49,33 @@
         <h1> Time Distribution of Twitter Data</h1>
     </div>
     <div class="row justify-content-md-center">
-        <h4>Description</h4>
+        <h4>Discovery</h4>
+        <div class="content">
+            <br>
+            The data has shown the number of posted tweets was closely related to the date and time
+            over a sample period. For instance, the number of tweets posted from Tuesday to Thursday
+            is basically the same, but this data has dropped sharply on Monday and Sunday.
+
+            In terms of time span, the number of tweets posted reached its peak at 4 am, then slowly
+            declined. The trend of decline slowed down at noon, and then fell sharply to reach the
+            lowest point at 8 pm in the evening.
+
+            These data are positively related to people's work and rest time to some extent. Each day’s
+            and hour's stats can be found by the following interactive radar charts and pie charts.
+        </div>
+        <div><br><br>
+            <h4>Charts and Figures</h4>
+        </div>
+
     </div>
     <div class="row">
             <canvas id="myChart"></canvas>
+        <div class="fig">Figure 1. Twitter Amounts by day</div>
     </div>
+    <br>
     <div class="row">
             <canvas id="myChart2"></canvas>
+        <div class="fig">Figure 2. Twitter Amounts by Time</div>
     </div>
 </div>
 <script type="text/javascript">
@@ -79,7 +108,7 @@
                 data: day_data,
                 backgroundColor: 'rgba(240,94,35,0.3)',
                 borderColor: 'rgba(240,94,35,0.8)',
-                label: 'Twitter amount by day'
+                label: 'Twitter amount'
             }]
          },
 
@@ -105,7 +134,7 @@
                 data: time_data,
                 backgroundColor: 'rgba(240,94,35,0.3)',
                 borderColor: 'rgba(240,94,35,0.8)',
-                label: 'Twitter amount by time'
+                label: 'Twitter amount'
             }]
          },
 
