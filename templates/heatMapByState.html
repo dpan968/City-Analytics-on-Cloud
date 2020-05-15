@@ -60,9 +60,21 @@
           margin-top: 30px;
           margin-bottom: 30px;
         }
+        .button-home{
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 12px;
+            background-color: #555555;
+        }
     </style>
 </head>
 <body>
+<button class="button-home">
+    <a href="index">homepage</a>
+</button>
 <div class="container">
     <div class="row justify-content-md-center">
         <h1> Overview of Twitter Data</h1>
@@ -253,7 +265,7 @@
             legend.onAdd = function (map) {
 
               var div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, 1000, 2000, 5000, 10000, 20000, 50000, 100000],
+                grades = [0, 1, 2, 5, 10, 20, 50, 100],
                 labels = [],
                 from, to;
 
@@ -372,7 +384,7 @@
             legend2.onAdd = function (map2) {
 
               var div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, 1000, 2000, 5000, 10000, 20000, 50000, 100000],
+                grades = [0, 100000, 200000, 500000, 1000000, 2000000, 5000000, 10000000],
                 labels = [],
                 from, to;
 
@@ -381,7 +393,7 @@
                 to = grades[i + 1];
 
                 labels.push(
-                  '<i style="background:' + getColor(from + 1) + '"></i> ' +
+                  '<i style="background:' + getColor2(from + 1) + '"></i> ' +
                   from + (to ? '&ndash;' + to : '+'));
               }
 
