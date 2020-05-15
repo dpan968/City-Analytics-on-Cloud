@@ -35,6 +35,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+        margin-top: 52px;
     }
     .title {
       position: absolute;
@@ -56,6 +57,12 @@
     .row{
       width: 100%;
       display: flex;
+    }
+    .content{
+        text-align: justify;
+        width: 90%;
+        margin-left: 15px;
+        margin-right: 15px;
     }
     .card{
       box-shadow: 20px 20px 20px rgb(56, 55, 55);
@@ -85,10 +92,16 @@
           <div class="card py-4 h-100">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">By State</h4>
+              <h4 class=" m-0">Population and Twitter</h4>
               <hr class="my-4">
-              <div class="small text-black-50">
-                <a href="heatbystate"> Description</a>
+                <div class="content">
+                    Correlation between the population distribution
+                    and the number of tweets posted will be displayed in
+                    the form of maps and charts.
+                </div>
+                <br>
+              <div class=" text-black-50">
+                <a href="heatbystate">More Details</a>
               </div>
             </div>
           </div>
@@ -98,10 +111,16 @@
           <div class="card py-4 h-100">
             <div class="card-body text-center">
               <i class="fas fa-envelope text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">By Language</h4>
+              <h4 class=" m-0">Language and Twitter</h4>
               <hr class="my-4">
-              <div class="small text-black-50">
-                <a href="language"> Description</a>
+              <div class="content">
+                    Correlation between the language distribution
+                    and the rate of tweets posted will be displayed in
+                    the form of maps and charts.
+              </div>
+                <br>
+              <div class=" text-black-50">
+                <a href="heatbystate">More Details</a>
               </div>
             </div>
           </div>
@@ -111,10 +130,16 @@
           <div class="card py-4 h-100">
             <div class="card-body text-center">
               <i class="fas fa-mobile-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">By time</h4>
+              <h4 class=" m-0">Time and Twitter</h4>
               <hr class="my-4">
-              <div class="small text-black-50">
-                <a href="daytime"> Description</a>
+              <div class="content">
+                    Correlation between the date and time distribution
+                    and the rate of tweets posted will be displayed in
+                    the form of maps and charts.
+              </div>
+                <br>
+              <div class=" text-black-50">
+                <a href="heatbystate">More Details</a>
               </div>
             </div>
           </div>
