@@ -16,6 +16,7 @@ while True:
         break
     data += line
 aurin = json.loads(data)
+
 def pong(request):
     if request.method == "GET":
         print("address")
@@ -101,6 +102,8 @@ def heatByState(request):
                 stateCount['nt'] += item['count']
             elif statLocation.inCT(item['location']):
                 stateCount['ct'] += item['count']
+        for key in stateCount:
+            stateCount[key] = stateCount[key]/1000
 
         return render(request, 'heatMapByState.html', {'data':stateCount,'aurin':readPopulation()})
         # return JsonResponse({
@@ -162,6 +165,8 @@ def language(request):
                         'count':1
                     }
                     data.append(item)
+        for item in data:
+            item['count'] = round(item['count'],4)
         return render(request, 'language.html', {'data': data,"aurin":aurin})
     
 def index(request):
@@ -172,7 +177,7 @@ def test(request):
     if request.method == 'GET':
 
         return JsonResponse({
-            "aurin":readPopulation(),
+            "aurin":aurin,
         })
 
 def dayAndTime(request):
