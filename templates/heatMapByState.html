@@ -69,6 +69,14 @@
             border-radius: 12px;
             background-color: #555555;
         }
+	.content{
+            width: 94%;
+            text-align: justify;
+        }
+        .fig{
+            text-align: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -77,10 +85,21 @@
 </button>
 <div class="container">
     <div class="row justify-content-md-center">
-        <h1> Overview of Twitter Data</h1>
+        <h1> Population and Twitter</h1>
     </div>
     <div class="row justify-content-md-center">
-        <h4>Description</h4>
+        <h4>Discovery</h4>
+        <div class="content">The data has shown a positive correlation between the population of states and
+            number of posted tweets over a sample period. For instance, NSW, with 786k population
+            and corresponding 200k tweets, is leading on both rankings. In a percentage
+            prospective, NSW dominates over other states (weights 50% of total tweets) with
+            32% of total population.Each state’s stats can be found by the following interactive bar charts and pie
+            charts.
+        </div>
+
+        <div>
+            <h4>Charts and Figures</h4>
+        </div>
     </div>
     <div class="row">
         <div id='mapid'>
@@ -93,17 +112,21 @@
     <div class="row">
         <div class="col-sm">
             <canvas id="myBarChart"></canvas>
+	    <div class="fig">Figure 1. Twitter Counts by State</div>
         </div>
         <div class="col-sm">
             <canvas id="myBarChart2"></canvas>
+            <div class="fig">Figure 2. Population Amounts by State</div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
             <canvas id="myPieChart"></canvas>
+	    <div class="fig">Figure 3. Rates of Twitter Amounts by State</div>
         </div>
         <div class="col-sm">
             <canvas id="myPieChart2"></canvas>
+	    <div class="fig">Figure 4. Rates of Population Amounts by State</div>
         </div>
     </div>
 </div>
