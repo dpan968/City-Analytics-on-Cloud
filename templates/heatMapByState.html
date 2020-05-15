@@ -178,7 +178,7 @@
 
             info.update = function (props) {
               this._div.innerHTML = '<h4>AU Twitter Amounts</h4>' +  (props ?
-                '<b>' + props.STATE_NAME + '</b><br />' + props.AMOUNT
+                '<b>' + props.STATE_NAME + '</b><br />' + props.AMOUNT + " thousands"
                 : 'Hover over a state');
             };
 
@@ -186,13 +186,13 @@
 
             // get color depending on population density value
             function getColor(d) {
-              return d > 100000 ? '#800026' :
-                  d > 50000  ? '#BD0026' :
-                  d > 20000  ? '#E31A1C' :
-                  d > 10000  ? '#FC4E2A' :
-                  d > 5000   ? '#FD8D3C' :
-                  d > 2000   ? '#FEB24C' :
-                  d > 1000   ? '#FED976' :
+              return d > 100 ? '#800026' :
+                  d > 50  ? '#BD0026' :
+                  d > 20  ? '#E31A1C' :
+                  d > 10  ? '#FC4E2A' :
+                  d > 5   ? '#FD8D3C' :
+                  d > 2   ? '#FEB24C' :
+                  d > 1   ? '#FED976' :
                         '#FFEDA0';
             }
 
