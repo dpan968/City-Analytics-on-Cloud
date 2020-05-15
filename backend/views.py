@@ -243,4 +243,6 @@ def readPopulation():
         state = stateDict[properties["state_code"]]
         statePopulation[state] += areaPopulation
 
+    for key in statePopulation:
+        statePopulation[key]  = statePopulation[key]/1000
     return statePopulation
