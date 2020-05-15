@@ -176,18 +176,22 @@
                 sum  = sum + data[name];
                 sum2  = sum2 + aurin[name];
             }
-
+            console.log(bar_data);
+            console.log(bar_data2);
+            console.log(label);
             //calculate piechart data
-            for (var i = bar_data.length - 1; i >= 0; i--){
+            for (var i = 0; i <bar_data.length; i++){
                 var curr = bar_data[i]/sum;
                 curr = Math.round(curr * 100) / 100;
                 pie_data.push(curr);
             }
-            for (var i = bar_data2.length - 1; i >= 0; i--){
+            for (var i = 0; i <bar_data2.length; i++){
                 var curr = bar_data2[i]/sum2;
                 curr = Math.round(curr * 100) / 100;
                 pie_data2.push(curr);
             }
+            console.log(pie_data);
+            console.log(pie_data2);
 
             //FIRST MAP
             var map = L.map('mapid').setView([-25, 133.8], 4);
