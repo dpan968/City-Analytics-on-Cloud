@@ -20,7 +20,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="../../../dist/2.9.3/Chart.min.js"></script>
+    <script src="../utils.js"></script>
     <style>
          #mapid {
             height: 600px;
@@ -73,14 +76,18 @@
         <h4>Description</h4>
     </div>
     <div class="row">
-        <div id='mapid'>
-        </div>
+        <div id='mapid'></div>
     </div>
-        <div class="row">
-        <div id='mapid2'>
-        </div>
+    <div class="row">
+        <div id='mapid2'></div>
     </div>
-
+    <div class="row">
+        <canvas id="myChart2"></canvas>
+    </div>
+    <div class="row">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
 <script type="text/javascript">
 
     var data = {{ data|safe }};
@@ -198,6 +205,123 @@
     };
 
     legend2.addTo(map2);
+
+
+
+
+
+    // first chart : bar chart
+    var twitter_border2 = ['rgba(255, 100, 131, 0.8)','rgba(255, 100, 131, 0.8)','rgba(255, 100, 131, 0.8)','rgba(255, 100, 131, 0.8)',
+        'rgba(255, 100, 131, 0.8)','rgba(255, 100, 131, 0.8)','rgba(255, 100, 131, 0.8)','rgba(255, 100, 131, 0.8)'];
+    var aurin_border2 = ['rgba(54, 162, 235, 0.8)', 'rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)',
+        'rgba(54, 162, 235, 0.8)', 'rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)']
+
+    var twitter_data = [0.2, 0.3, 0.1, 0.2, 0.4, 0.15, 0.2, 0.4];
+    var aurin_data = [0.3, 0.5, 0.4, 0.3, 0.4, 0.2, 0.5, 0.4];
+    var twitter_data_default = [];
+    var aurin_data_default = [];
+    var label = ['WA', 'NA', 'SA', 'QLD', 'NSW', 'VIC', 'ACT', 'TAS']
+
+    for (var i = 0; i < aurin_data.length; i ++) {
+        var twitter_default = 1 - twitter_data[i];
+        var aurin_default = 1 - aurin_data[i];
+        twitter_data_default.push(twitter_default);
+        aurin_data_default.push(aurin_default);
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: label,
+                datasets: [{
+                    label: 'Non-English Twitter',
+                    stack: 'Stack 0',
+                    data: twitter_data,
+                    backgroundColor: twitter_border2,
+                    borderColor: twitter_border2,
+                    borderWidth: 2
+                },
+                {
+                    label: 'English Twitter',
+                    stack: 'Stack 0',
+                    data: twitter_data_default,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Non-English Speaking Population',
+                    stack: 'Stack 1',
+                    data: aurin_data,
+                    backgroundColor: aurin_border2,
+                    borderColor: aurin_border2,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Non-English Speaking Population',
+                    stack: 'Stack 1',
+                    data: aurin_data_default,
+                    borderWidth: 2
+                }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+                },
+                title: {
+                    display: true,
+                    // text: 'Twitter Data & AURIN Data'
+                }
+            }
+        });
+
+
+    // second chart : radar chart
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'radar',
+            data: {
+                labels: label,
+                datasets: [{
+                    label: 'Non-English Twitter',
+                    data: twitter_data,
+                    backgroundColor: 'rgba(255, 100, 131, 0.2)',
+                    borderColor: 'rgba(255, 100, 131, 0.8)',
+                    pointBackgroundColor: 'rgba(255, 100, 131, 0.8)',
+                    borderWidth: 4,
+                    pointHoverRadius: 10
+                },
+                {
+                    label: 'Non-English Speaking Population',
+                    data: aurin_data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 0.8)',
+                    pointBackgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderWidth: 4,
+                    pointHoverRadius: 10
+                }]
+            },
+            options: {
+                legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					{#text: 'Chart.js Radar Chart'#}
+				},
+				scale: {
+					ticks: {
+                        beginAtZero: true,
+                        suggestedMax: 0.7
+					}
+				}
+            }
+        });
 
 </script>
 </body>
