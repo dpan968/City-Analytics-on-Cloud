@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59ead6e1-62be-40a4-b6fe-ddb2d4a14a53" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,7 +93,7 @@
       <workItem from="1589542294946" duration="177000" />
       <workItem from="1589545732802" duration="89000" />
       <workItem from="1589545826462" duration="186000" />
-      <workItem from="1589547564722" duration="6497000" />
+      <workItem from="1589547564722" duration="6744000" />
     </task>
     <task id="LOCAL-00001" summary="add homepage link">
       <created>1589522695858</created>
@@ -124,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589556651995</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="justify the homepage">
+      <created>1589560676022</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1589560676022</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,7 +154,8 @@
     <MESSAGE value="add description for dayTime.html" />
     <MESSAGE value="add barChart and radarChart analyse to language html" />
     <MESSAGE value="add description to language html" />
-    <option name="LAST_COMMIT_MESSAGE" value="add description to language html" />
+    <MESSAGE value="justify the homepage" />
+    <option name="LAST_COMMIT_MESSAGE" value="justify the homepage" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1238" height="181" key="GridCell.Tab.0.bottom" timestamp="1588590123340">
