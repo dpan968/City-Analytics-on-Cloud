@@ -119,7 +119,7 @@
             color: getColor(data[i].count),
             weight: 1,}
           ).addTo(map);
-	    marker.bindPopup("<b>Location: </b>" + loc + "<br><b>Count: </b>" + count).openPopup();
+	    marker.bindPopup("<b>Location: </b>" + loc + "<br><b>Ratio: </b>" + count).openPopup();
     };
 	
     var legend = L.control({position: 'bottomright'});
@@ -152,13 +152,13 @@
     }).addTo(map2);
 
     function getColor2(d) {
-      return d > 0.09 ? '#800026' :
+      return d > 0.1 ? '#800026' :
           d > 0.08  ? '#BD0026' :
-          d > 0.07  ? '#E31A1C' :
-          d > 0.06  ? '#FC4E2A' :
-          d > 0.05   ? '#FD8D3C' :
-          d > 0.03   ? '#FEB24C' :
-          d > 0.01   ? '#FED976' :
+          d > 0.06  ? '#E31A1C' :
+          d > 0.04  ? '#FC4E2A' :
+          d > 0.02   ? '#FD8D3C' :
+          d > 0.009   ? '#FEB24C' :
+          d > 0.001   ? '#FED976' :
                 '#FFEDA0';
     }
 
@@ -186,19 +186,18 @@
 
     legend2.onAdd = function (map2) {
         var div = L.DomUtil.create('div', 'info legend'),
-            grades = [0, 0.01, 0.03, 0.05, 0.06, 0.07, 0.08, 0.09],
+            grades = [0, 0.001, 0.009, 0.02, 0.04, 0.06, 0.08, 0.1],
             labels = [];
         // loop through our density intervals and generate a label with a colored square for each interval
          for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
-                '<i style="background:' + getColor2(grades[i] + 0.01) + '"></i> ' +
+                '<i style="background:' + getColor2(grades[i] + 0.001) + '"></i> ' +
                 grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
         }
         return div;
     };
 
     legend2.addTo(map2);
-
 
 </script>
 </body>
