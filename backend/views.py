@@ -167,7 +167,7 @@ def language(request):
                     data.append(item)
         for item in data:
             item['count'] = round(item['count'],4)
-        return render(request, 'language.html', {'data': data,"aurin":aurin})
+        return render(request, 'language.html', {'data': data,"aurin":aurin,'rate':readLanguageByState()})
     
 def index(request):
     if request.method == 'GET':
@@ -177,7 +177,7 @@ def test(request):
     if request.method == 'GET':
 
         return JsonResponse({
-            "aurin":aurin,
+            "aurin":readLanguageByState(),
         })
 
 def dayAndTime(request):
@@ -246,3 +246,60 @@ def readPopulation():
     for key in statePopulation:
         statePopulation[key]  = statePopulation[key]/1000
     return statePopulation
+
+
+
+
+def readLanguageByState():
+    stateTotal = {
+        'vic': 0,
+        'nsw': 0,
+        'sa': 0,
+        'qsl': 0,
+        'wa': 0,
+        'tas': 0,
+        'nt': 0,
+        'act': 0
+    }
+    stateEngElse = {
+        'vic': 0,
+        'nsw': 0,
+        'sa': 0,
+        'qsl': 0,
+        'wa': 0,
+        'tas': 0,
+        'nt': 0,
+        'act': 0
+    }
+    stateDict = {
+        '1': 'nsw',
+        '2': 'vic',
+        '3': 'qsl',
+        '4': 'sa',
+        '5': 'wa',
+        '6': 'tas',
+        '7': 'nt',
+        '8': 'act'
+    }
+    file = open("backend/languageByState.json")
+    data = ""
+    while True:
+        line = file.readline()
+        if not line:
+            break
+        data += line
+
+    originalJson = json.loads(data)
+    for i in originalJson["features"]:
+        properties = i["properties"]
+        total = properties["person_tot_tot"]-properties["person_lang_spkn_home_notstated_tot"]
+        engElse = properties["person_spks_oth_lang_tot"]
+        stateId = properties["gcc_code16"][0]
+        if stateId in stateDict:
+            state = stateDict[stateId]
+            stateTotal[state] += total
+            stateEngElse[state] += engElse
+    stateEngElseRate = dict()
+    for i in stateTotal:
+        stateEngElseRate[i] = round(stateEngElse[i]/stateTotal[i],4)
+    return stateEngElseRate
