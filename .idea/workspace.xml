@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59ead6e1-62be-40a4-b6fe-ddb2d4a14a53" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/daytime.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/daytime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/heatMapByState.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/heatMapByState.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/language.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/language.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +96,8 @@
       <workItem from="1589542294946" duration="177000" />
       <workItem from="1589545732802" duration="89000" />
       <workItem from="1589545826462" duration="186000" />
-      <workItem from="1589547564722" duration="6744000" />
+      <workItem from="1589547564722" duration="6878000" />
+      <workItem from="1589603788329" duration="5848000" />
     </task>
     <task id="LOCAL-00001" summary="add homepage link">
       <created>1589522695858</created>
@@ -130,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589560676022</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="justify the links">
+      <created>1589560877237</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1589560877237</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +166,8 @@
     <MESSAGE value="add barChart and radarChart analyse to language html" />
     <MESSAGE value="add description to language html" />
     <MESSAGE value="justify the homepage" />
-    <option name="LAST_COMMIT_MESSAGE" value="justify the homepage" />
+    <MESSAGE value="justify the links" />
+    <option name="LAST_COMMIT_MESSAGE" value="justify the links" />
   </component>
   <component name="WindowStateProjectService">
     <state width="1238" height="181" key="GridCell.Tab.0.bottom" timestamp="1588590123340">

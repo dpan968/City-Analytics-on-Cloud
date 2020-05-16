@@ -68,7 +68,7 @@
         .fig{
             text-align: center;
             width: 100%;
-            font-size: 16px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -104,19 +104,27 @@
         <div id='mapid2'></div>
     </div>
     <div class="row">
-        <canvas id="myChart2"></canvas>
-        <div class="fig">Figure 1. Rate of Non-English Twitter and <br>Non-English Population by State</div>
+        <div class="col-sm">
+            <canvas id="myChart2"></canvas>
+            <div class="fig"><b>Figure 1.</b> Rate of Non-English <br>Twitter by State</div>
+        </div>
+        <div class="col-sm">
+            <canvas id="myChart3"></canvas>
+            <div class="fig"><b>Figure 2.</b> Rate of Non-English <br>Population by State</div>
+        </div>
     </div>
     <br>
     <div class="row">
         <canvas id="myChart"></canvas>
-        <div class="fig">Figure 2. Rate of Non-English Twitter and <br>Non-English Population by State</div>
+        <div class="fig"><b>Figure 3.</b> Rate of Non-English Twitter and <br>Non-English Population by State</div>
     </div>
 </div>
 <script type="text/javascript">
 
     var data = {{ data|safe }};
     var aurin = {{ aurin|safe }};
+    var rate_A = {{ rate|safe }}
+    var rate_T = {{ languageStateRate|safe }}
 
     //FIRST MAP
     var map = L.map('mapid').setView([-25, 133.8], 4);
@@ -241,15 +249,24 @@
     var aurin_border2 = ['rgba(54, 162, 235, 0.8)', 'rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)',
         'rgba(54, 162, 235, 0.8)', 'rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)','rgba(54, 162, 235, 0.8)']
 
-    var twitter_data = [0.2, 0.3, 0.1, 0.2, 0.4, 0.15, 0.2, 0.4];
-    var aurin_data = [0.3, 0.5, 0.4, 0.3, 0.4, 0.2, 0.5, 0.4];
+    var twitter_data = [];
+    var aurin_data = [];
     var twitter_data_default = [];
     var aurin_data_default = [];
-    var label = ['WA', 'NA', 'SA', 'QLD', 'NSW', 'VIC', 'ACT', 'TAS']
+    var label = ['VIC', 'NSW', 'SA', 'QSL', 'WA', 'TAS', 'NT', 'ACT'];
+    var label_small = ['vic', 'nsw', 'sa', 'qsl', 'wa', 'tas', 'nt', 'act'];
+
+    for (var i = 0; i < label_small.length; i ++) {
+        var lab = label_small[i];
+        var data_T = rate_T[lab];
+        var data_A = rate_A[lab];
+        twitter_data.push(data_T);
+        aurin_data.push(data_A);
+    }
 
     for (var i = 0; i < aurin_data.length; i ++) {
-        var twitter_default = 1 - twitter_data[i];
-        var aurin_default = 1 - aurin_data[i];
+        var twitter_default = 0.3 - twitter_data[i];
+        var aurin_default = 0.05 - aurin_data[i];
         twitter_data_default.push(twitter_default);
         aurin_data_default.push(aurin_default);
     }
@@ -262,29 +279,19 @@
                 datasets: [{
                     label: 'Non-English Twitter',
                     stack: 'Stack 0',
+                    yAxisID: 'first-y-axis',
                     data: twitter_data,
                     backgroundColor: twitter_border2,
                     borderColor: twitter_border2,
                     borderWidth: 2
                 },
                 {
-                    label: 'English Twitter',
-                    stack: 'Stack 0',
-                    data: twitter_data_default,
-                    borderWidth: 2
-                },
-                {
                     label: 'Non-English Speaking Population',
                     stack: 'Stack 1',
+                    yAxisID: 'second-y-axis',
                     data: aurin_data,
                     backgroundColor: aurin_border2,
                     borderColor: aurin_border2,
-                    borderWidth: 2
-                },
-                {
-                    label: 'Non-English Speaking Population',
-                    stack: 'Stack 1',
-                    data: aurin_data_default,
                     borderWidth: 2
                 }
                 ]
@@ -292,11 +299,18 @@
             options: {
                 scales: {
                     xAxes: [{
-							stacked: true,
-						}],
-						yAxes: [{
-							stacked: true
-						}]
+                        stacked: true,
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        id: 'first-y-axis'
+                    },
+                    {
+                        stacked: true,
+                        id: 'second-y-axis',
+                        position: 'right',
+                        max: 0.05
+                    }]
                 },
                 title: {
                     display: true,
@@ -320,8 +334,26 @@
                     pointBackgroundColor: 'rgba(255, 100, 131, 0.8)',
                     borderWidth: 4,
                     pointHoverRadius: 10
-                },
-                {
+                }]
+            },
+            options: {
+                legend: {
+					position: 'top',
+				},
+				scale: {
+					ticks: {
+                        beginAtZero: true
+					}
+				}
+            }
+        });
+
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
+            type: 'radar',
+            data: {
+                labels: label,
+                datasets: [{
                     label: 'Non-English Speaking Population',
                     data: aurin_data,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -335,14 +367,9 @@
                 legend: {
 					position: 'top',
 				},
-				title: {
-					display: true,
-					{#text: 'Chart.js Radar Chart'#}
-				},
 				scale: {
 					ticks: {
-                        beginAtZero: true,
-                        suggestedMax: 0.7
+                        beginAtZero: true
 					}
 				}
             }
