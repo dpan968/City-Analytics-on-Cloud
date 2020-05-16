@@ -167,7 +167,9 @@ def language(request):
                     data.append(item)
         for item in data:
             item['count'] = round(item['count'],4)
-        return render(request, 'language.html', {'data': data,"aurin":aurin,'rate':readLanguageByState()})
+
+        languageState = languageByState(result)
+        return render(request, 'language.html', {'data': data,"aurin":aurin,'rate':readLanguageByState(),'languageStateRate':languageState})
     
 def index(request):
     if request.method == 'GET':
@@ -179,6 +181,73 @@ def test(request):
         return JsonResponse({
             "aurin":readLanguageByState(),
         })
+def languageByState(result):
+    stateEnCount = {
+        'vic': 0,
+        'nsw': 0,
+        'sa': 0,
+        'qsl': 0,
+        'wa': 0,
+        'tas': 0,
+        'nt': 0,
+        'act': 0
+    }
+
+    stateTotalCount = {
+        'vic': 0,
+        'nsw': 0,
+        'sa': 0,
+        'qsl': 0,
+        'wa': 0,
+        'tas': 0,
+        'nt': 0,
+        'act': 0
+    }
+    statLocation = StateLocation()
+    stateCount = {}
+    for row in result:
+        location = row.key[1]
+        if row.key[0] != "en":
+            if statLocation.inVIC(location):
+                stateEnCount['vic'] += row.value
+            elif statLocation.inNSW(location):
+                stateEnCount['nsw'] += row.value
+            elif statLocation.inSA(location):
+                stateEnCount['sa'] += row.value
+            elif statLocation.inQSL(location):
+                stateEnCount['qsl'] += row.value
+            elif statLocation.inWA(location):
+                stateEnCount['wa'] += row.value
+            elif statLocation.inTas(location):
+                stateEnCount['tas'] += row.value
+            elif statLocation.inNT(location):
+                stateEnCount['nt'] += row.value
+            elif statLocation.inCT(location):
+                stateEnCount['ct'] += row.value
+        if statLocation.inVIC(location):
+            stateTotalCount['vic'] += row.value
+        elif statLocation.inNSW(location):
+            stateTotalCount['nsw'] += row.value
+        elif statLocation.inSA(location):
+            stateTotalCount['sa'] += row.value
+        elif statLocation.inQSL(location):
+            stateTotalCount['qsl'] += row.value
+        elif statLocation.inWA(location):
+            stateTotalCount['wa'] += row.value
+        elif statLocation.inTas(location):
+            stateTotalCount['tas'] += row.value
+        elif statLocation.inNT(location):
+            stateTotalCount['nt'] += row.value
+        elif statLocation.inCT(location):
+            stateTotalCount['ct'] += row.value
+
+    for state in stateTotalCount:
+        if stateTotalCount[state] == 0:
+            stateCount[state] = 0
+        else:
+            stateCount[state] = round(stateEnCount[state]/stateTotalCount[state],4)
+    return stateCount
+
 
 def dayAndTime(request):
     if request.method == 'GET':
