@@ -6,7 +6,7 @@ import couchdb2
 import os
 import socket
 ip = os.environ.get('DB')
-address = "http://admin:1234@" + ip + ":5985/"
+address = "http://admin:1234@" + ip + ":5984/"
 
 
 def pong(request):
