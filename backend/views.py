@@ -6,7 +6,7 @@ import couchdb2
 import os
 import socket
 ip = os.environ.get('DB')
-address = "http://admin:1234@" + ip + ":5984/"
+address = "http://admin:1234@" + ip + ":5985/"
 
 
 def pong(request):
@@ -31,101 +31,130 @@ def pong(request):
 
 def heatByState(request):
     if request.method == "GET":
-        statLocation = StateLocation()
-        print("receive request")
-        server1 = couchdb2.Server(address)
-        db = server1['tweets']
-
         stateCount = {
-            'vic' : 0,
-            'nsw' : 0,
-            'sa' : 0,
-            'qsl' : 0,
-            'wa' : 0,
-            'tas' : 0,
-            'nt' : 0,
-            'act' : 0
+            'vic': 0,
+            'nsw': 0,
+            'sa': 0,
+            'qsl': 0,
+            'wa': 0,
+            'tas': 0,
+            'nt': 0,
+            'act': 0
         }
-
-        result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
-        for row in result:
-            item = {
-                'location': row.key,
-                'count': row.value
-            }
-            if statLocation.inVIC(item['location']):
-                stateCount['vic'] += item['count']
-            elif statLocation.inNSW(item['location']):
-                stateCount['nsw'] += item['count']
-            elif statLocation.inSA(item['location']):
-                stateCount['sa'] += item['count']
-            elif statLocation.inQSL(item['location']):
-                stateCount['qsl'] += item['count']
-            elif statLocation.inWA(item['location']):
-                stateCount['wa'] += item['count']
-            elif statLocation.inTas(item['location']):
-                stateCount['tas'] += item['count']
-            elif statLocation.inNT(item['location']):
-                stateCount['nt'] += item['count']
-            elif statLocation.inCT(item['location']):
-                stateCount['ct'] += item['count']
-        for key in stateCount:
-            stateCount[key] = stateCount[key]/1000
-
-        return render(request, 'heatMapByState.html', {'data':stateCount,'aurin':readPopulation()})
-
-
+        try:
+            statLocation = StateLocation()
+            server1 = couchdb2.Server(address)
+            db = server1['tweets']
+            result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
+            for row in result:
+                item = {
+                    'location': row.key,
+                    'count': row.value
+                }
+                if statLocation.inVIC(item['location']):
+                    stateCount['vic'] += item['count']
+                elif statLocation.inNSW(item['location']):
+                    stateCount['nsw'] += item['count']
+                elif statLocation.inSA(item['location']):
+                    stateCount['sa'] += item['count']
+                elif statLocation.inQSL(item['location']):
+                    stateCount['qsl'] += item['count']
+                elif statLocation.inWA(item['location']):
+                    stateCount['wa'] += item['count']
+                elif statLocation.inTas(item['location']):
+                    stateCount['tas'] += item['count']
+                elif statLocation.inNT(item['location']):
+                    stateCount['nt'] += item['count']
+                elif statLocation.inCT(item['location']):
+                    stateCount['ct'] += item['count']
+            for key in stateCount:
+                stateCount[key] = stateCount[key]/1000
+            cache = open('backend/cache/stateCountCache.json','w')
+            json.dump(stateCount,cache)
+            cache.close()
+        except BaseException:
+            print("error in connecting to the database")
+            cache = open('backend/cache/stateCountCache.json','r')
+            stateCount = json.load(cache)
+            cache.close()
+        finally:
+            return render(request, 'heatMapByState.html', {'data':stateCount,'aurin':readPopulation()})
 
 def heatMapOrigin(request):
     if request.method == "GET":
-        server1 = couchdb2.Server(address)
-        db = server1['tweets']
-
         list = []
-        result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
-        sum = 0
-        for row in result:
-            item = {
-                'location': row.key,
-                'count': row.value
-            }
-            sum += row.value
-            list.append(item)
+        try:
+            server1 = couchdb2.Server(address)
+            db = server1['tweets']
 
-        return render(request,'test.html',{'data':list})
+
+            result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
+            sum = 0
+            for row in result:
+                item = {
+                    'location': row.key,
+                    'count': row.value
+                }
+                sum += row.value
+                list.append(item)
+            cache = open('backend/cache/heatMapOrigin.json','w')
+            json.dump(list,cache)
+            cache.close()
+        except BaseException:
+            print("error in connecting to the database")
+            cache = open('backend/cache/heatMapOrigin.json','r')
+            list = json.load(cache)
+            cache.close()
+        finally:
+            return render(request,'test.html',{'data':list})
 
 def language(request):
     if request.method == 'GET':
-        server1 = couchdb2.Server(address)
-        db = server1['tweets']
-
-        result = db.view('/abc', 'language', group=True, group_level=2, reduce=True)
-        en = {}
-        ot = {}
-        data = []
-        for row in result:
-            if row.key[0] == "en":
-
-                en[tuple(row.key[1])] = row.value
-            else:
-                if tuple(row.key[1]) in en:
-                    enCount = en.get(tuple(row.key[1]))
-                    item = {
-                        'location':row.key[1],
-                        'count':row.value/(row.value+enCount)
-                    }
-                    data.append(item)
+        languageState = {}
+        languageOrigin = []
+        try:
+            server1 = couchdb2.Server(address)
+            db = server1['tweets']
+            result = db.view('/abc', 'language', group=True, group_level=2, reduce=True)
+            en = {}
+            languageOrigin = []
+            for row in result:
+                if row.key[0] == "en":
+                    en[tuple(row.key[1])] = row.value
                 else:
-                    item = {
-                        'location':row.key[1],
-                        'count':1
-                    }
-                    data.append(item)
-        for item in data:
-            item['count'] = round(item['count'],4)
+                    if tuple(row.key[1]) in en:
+                        enCount = en.get(tuple(row.key[1]))
+                        item = {
+                            'location':row.key[1],
+                            'count':row.value/(row.value+enCount)
+                        }
+                        languageOrigin.append(item)
+                    else:
+                        item = {
+                            'location':row.key[1],
+                            'count':1
+                        }
+                        languageOrigin.append(item)
+            for item in languageOrigin:
+                item['count'] = round(item['count'],4)
+            languageState = languageByState(result)
 
-        languageState = languageByState(result)
-        return render(request, 'language.html', {'data': data,"aurin":heatByStateAurin(),'rate':readLanguageByState(),'languageStateRate':languageState})
+            cache1 = open('backend/cache/languageOrigin.json','w')
+            json.dump(languageOrigin,cache1)
+            cache1.close()
+            cache2 = open('backend/cache/languageState.json','w')
+            json.dump(languageState,cache2)
+            cache2.close()
+        except BaseException:
+            print("error in connecting to the database")
+            cache1 = open('backend/cache/languageOrigin.json','r')
+            languageOrigin = json.load(cache1)
+            cache1.close()
+            cache2 = open('backend/cache/languageState.json','r')
+            languageState = json.load(cache2)
+            cache2.close()
+        finally:
+            return render(request, 'language.html', {'data': languageOrigin,"aurin":heatByStateAurin(),'rate':readLanguageByState(),'languageStateRate':languageState})
     
 def index(request):
     if request.method == 'GET':
@@ -209,26 +238,46 @@ def languageByState(result):
 
 def dayAndTime(request):
     if request.method == 'GET':
-        server1 = couchdb2.Server(address)
-        db = server1['tweets']
-        result = db.view('/abc', 'day', group=True, group_level=1, reduce=True)
         day = []
-        for row in result:
-            item = {
-                'day': row.key,
-                'frequency': row.value
-            }
-            day.append(item)
-
-        result = db.view('/abc', 'time', group=True, group_level=1, reduce=True)
         time = []
-        for row in result:
-            item = {
-                'time': row.key,
-                'frequency': row.value
-            }
-            time.append(item)
-        return render(request, 'daytime.html', {'day':day,'time':time})
+        try:
+            server1 = couchdb2.Server(address)
+            db = server1['tweets']
+            result = db.view('/abc', 'day', group=True, group_level=1, reduce=True)
+
+            for row in result:
+                item = {
+                    'day': row.key,
+                    'frequency': row.value
+                }
+                day.append(item)
+
+            result = db.view('/abc', 'time', group=True, group_level=1, reduce=True)
+
+            for row in result:
+                item = {
+                    'time': row.key,
+                    'frequency': row.value
+                }
+                time.append(item)
+            cache1 = open('backend/cache/day.json', 'w')
+            json.dump(day, cache1)
+            cache1.close()
+
+            cache2 = open('backend/cache/time.json', 'w')
+            json.dump(time, cache2)
+            cache2.close()
+        except BaseException:
+            print("error in connecting to database")
+            cache1 = open('backend/cache/day.json', 'r')
+            day = json.load(cache1)
+            cache1.close()
+
+            cache2 = open('backend/cache/time.json', 'r')
+            time = json.load(cache2)
+            cache2.close()
+        finally:
+            return render(request, 'daytime.html', {'day':day,'time':time})
 
 
 def readPopulation():
