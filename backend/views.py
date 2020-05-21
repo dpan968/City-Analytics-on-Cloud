@@ -4,26 +4,15 @@ import json
 from .utils import StateLocation
 import couchdb2
 import os
-
+import socket
 ip = os.environ.get('DB')
 address = "http://admin:1234@" + ip + ":5984/"
-a = os.environ.get('TEST')
-file = open("backend/aurin.geojson")
-data = ""
-while True:
-    line = file.readline()
-    if not line:
-        break
-    data += line
-aurin = json.loads(data)
+
 
 def pong(request):
     if request.method == "GET":
-        print("address")
-
         server1 = couchdb2.Server(address)
         db = server1['tweets']
-
         list = []
         result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
         sum = 0
@@ -36,29 +25,8 @@ def pong(request):
             list.append(item)
 
         return JsonResponse({
-
             "message":list
         })
-
-
-# def test(request):
-#     if request.method == "GET":
-#         statLocation = StateLocation()
-#         print("receive request")
-#         server1 = couchdb2.Server('http://admin:1234@115.146.94.150:8000/')
-#         db = server1['tweets']
-#
-#         list = []
-#         result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
-#         for row in result:
-#             item = {
-#                 'location': row.key,
-#                 'count': row.value
-#             }
-#             if statLocation.inCT(item['location']):
-#                 list.append(item)
-#
-#         return render(request,'heatMapByState.html',{'data':list})
 
 
 def heatByState(request):
@@ -78,7 +46,6 @@ def heatByState(request):
             'nt' : 0,
             'act' : 0
         }
-
 
         result = db.view('/abc', 'testView2', group=True, group_level=2, reduce=True)
         for row in result:
@@ -106,16 +73,11 @@ def heatByState(request):
             stateCount[key] = stateCount[key]/1000
 
         return render(request, 'heatMapByState.html', {'data':stateCount,'aurin':readPopulation()})
-        # return JsonResponse({
-        #     'data': stateCount
-        # })
-
 
 
 
 def heatMapOrigin(request):
     if request.method == "GET":
-        print("receive request")
         server1 = couchdb2.Server(address)
         db = server1['tweets']
 
@@ -134,22 +96,16 @@ def heatMapOrigin(request):
 
 def language(request):
     if request.method == 'GET':
-        print("receive request")
         server1 = couchdb2.Server(address)
         db = server1['tweets']
 
-        list = []
         result = db.view('/abc', 'language', group=True, group_level=2, reduce=True)
         en = {}
         ot = {}
         data = []
         for row in result:
-            # item = {
-            #     'location': row.key,
-            #     'count': row.value
-            # }
             if row.key[0] == "en":
-                a = tuple(row.key[1])
+
                 en[tuple(row.key[1])] = row.value
             else:
                 if tuple(row.key[1]) in en:
@@ -169,7 +125,7 @@ def language(request):
             item['count'] = round(item['count'],4)
 
         languageState = languageByState(result)
-        return render(request, 'language.html', {'data': data,"aurin":aurin,'rate':readLanguageByState(),'languageStateRate':languageState})
+        return render(request, 'language.html', {'data': data,"aurin":heatByStateAurin(),'rate':readLanguageByState(),'languageStateRate':languageState})
     
 def index(request):
     if request.method == 'GET':
@@ -177,9 +133,11 @@ def index(request):
 
 def test(request):
     if request.method == 'GET':
-
+        myname = socket.getfqdn(socket.gethostname())
+        myaddr = socket.gethostbyname(myname)
         return JsonResponse({
-            "aurin":readLanguageByState(),
+            "name":myname,
+            "ip":myaddr
         })
 def languageByState(result):
     stateEnCount = {
@@ -253,8 +211,6 @@ def dayAndTime(request):
     if request.method == 'GET':
         server1 = couchdb2.Server(address)
         db = server1['tweets']
-
-        list = []
         result = db.view('/abc', 'day', group=True, group_level=1, reduce=True)
         day = []
         for row in result:
@@ -272,7 +228,6 @@ def dayAndTime(request):
                 'frequency': row.value
             }
             time.append(item)
-        #return JsonResponse({'day':day,'time':time})
         return render(request, 'daytime.html', {'day':day,'time':time})
 
 
@@ -372,3 +327,15 @@ def readLanguageByState():
     for i in stateTotal:
         stateEngElseRate[i] = round(stateEngElse[i]/stateTotal[i],4)
     return stateEngElseRate
+
+
+def heatByStateAurin():
+    file = open("backend/aurin.geojson")
+    data = ""
+    while True:
+        line = file.readline()
+        if not line:
+            break
+        data += line
+    aurin = json.loads(data)
+    return aurin
