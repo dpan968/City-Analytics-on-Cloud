@@ -83,13 +83,13 @@
     var time = {{ time|safe }};
 
     var day_data = [];
-    for (var i = day.length - 1; i >= 0; i--){
+    for (var i = 0; i < day.length; i++){
         console.log(day[i].frequency);
         day_data.push(day[i].frequency);
     }
 
     var time_data = [];
-    for (var i = time.length - 1; i >= 0; i--){
+    for (var i = 0; i < time.length; i++){
         console.log(time[i].frequency);
         time_data.push(time[i].frequency);
     }
@@ -113,7 +113,18 @@
          },
 
          // Configuration options go here
-         options: {}
+        options: {
+            scale: {
+                angleLines: {
+                    display: false
+                },
+                ticks: {
+                    suggestedMin: 5000,
+                    suggestedMax: 50000
+                }
+            }
+        }
+
     });
 
 
