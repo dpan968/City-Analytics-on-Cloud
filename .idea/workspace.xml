@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="59ead6e1-62be-40a4-b6fe-ddb2d4a14a53" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/daytime.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/daytime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cache/day.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/day.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cache/languageOrigin.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/languageOrigin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cache/languageState.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/languageState.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cache/stateCountCache.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/stateCountCache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cache/time.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/time.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,12 +188,14 @@
       <screen x="0" y="23" width="1280" height="729" />
     </state>
     <state x="141" y="26" key="SettingsEditor/0.23.1280.729@0.23.1280.729" timestamp="1588581986385" />
-    <state x="357" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1590033196049">
-      <screen x="0" y="23" width="1440" height="804" />
+    <state x="357" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1590239872593">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="317" y="220" key="com.intellij.ide.util.TipDialog/-347.-1057.1920.1057/0.23.1280.729@0.23.1280.729" timestamp="1588587831529" />
     <state x="317" y="220" key="com.intellij.ide.util.TipDialog/0.23.1280.729@0.23.1280.729" timestamp="1588581404749" />
+    <state x="357" y="239" key="com.intellij.ide.util.TipDialog/0.23.1440.801@0.23.1440.801" timestamp="1590037056494" />
     <state x="357" y="240" key="com.intellij.ide.util.TipDialog/0.23.1440.804@0.23.1440.804" timestamp="1590033196049" />
+    <state x="357" y="241" key="com.intellij.ide.util.TipDialog/0.23.1440.808@0.23.1440.808" timestamp="1590239872593" />
     <state x="357" y="242" key="com.intellij.ide.util.TipDialog/0.23.1440.811@0.23.1440.811" timestamp="1588806694152" />
   </component>
 </project>
