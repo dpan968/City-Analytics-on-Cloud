@@ -1,3 +1,8 @@
+# Group 8 CCC Assignment2
+# Authors: Jiawei Wu 1036192, Luxi Li 1017820, Lixian Sun 938295, Deng Pan 354059, Rui Wang 978296
+# Date: 26/05/2020
+# Description: Utils for processing data.
+
 class StateLocation:
     def __init__(self):
         self.nsw = [[149.976679, -37.50506], [148.194946, -36.796253], [148.211171, -36.650519],

@@ -1,3 +1,8 @@
+# Group 8 CCC Assignment2
+# Authors: Jiawei Wu 1036192, Luxi Li 1017820, Lixian Sun 938295, Deng Pan 354059, Rui Wang 978296
+# Date: 26/05/2020
+# Description: Backend of the web application, read and process data from couchdb.
+
 from django.http import JsonResponse
 from django.shortcuts import render
 import json
