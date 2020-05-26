@@ -6,10 +6,12 @@
       <change beforePath="$PROJECT_DIR$/backend/cache/day.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/day.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/cache/languageOrigin.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/languageOrigin.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/cache/languageState.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/languageState.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/cache/stateCountCache.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/stateCountCache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/cache/time.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cache/time.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/daytime.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/daytime.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/heatMapByState.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/heatMapByState.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/language.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/language.html" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +42,18 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/backend" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="backend" type="Python.DjangoServer" factoryName="Django server">
@@ -88,6 +102,7 @@
       <workItem from="1589545826462" duration="186000" />
       <workItem from="1589547564722" duration="6878000" />
       <workItem from="1589603788329" duration="5848000" />
+      <workItem from="1590466191266" duration="1789000" />
     </task>
     <task id="LOCAL-00001" summary="add homepage link">
       <created>1589522695858</created>
